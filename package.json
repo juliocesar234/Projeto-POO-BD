@@ -1,0 +1,24 @@
+{
+  "name": "Projeto-POOBD",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliocesar234/Projeto-POO-BD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juliocesar234/Projeto-POO-BD/issues"
+  },
+  "homepage": "https://github.com/juliocesar234/Projeto-POO-BD#readme",
+  "dependencies": {
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.0"
+  }
+}
