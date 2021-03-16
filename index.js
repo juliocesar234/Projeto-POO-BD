@@ -34,6 +34,10 @@ var Disciplina = conexao.define("Disciplina",
     ,
 
     quantidade: sequelize.INTEGER
+    
+    ,
+
+
 });
 
 var Exercicio = conexao.define("Exercicio", 
@@ -74,7 +78,7 @@ var Exercicio = conexao.define("Exercicio",
 
     ,
 
-    pontuacao: sequelize.numeric
+    pontuacao: sequelize.DOUBLE
 
     ,
 
@@ -113,16 +117,26 @@ var Tem = conexao.define("Tem",
 var Possui = conexao.define("Disciplina", 
 {
     id_disciplina: {
-        type: sequelize.INTEGER
+        type: sequelize.INTEGER,
+        refeences:{
+            key: 'id',
+            model: Disciplina
+        }
     }
 
     ,
 
     id_assunto: {
-        type: sequelize.INTEGER
+        type: sequelize.INTEGER,
+        refeences:{
+            key: 'id',
+            model: Assunto
+        }
     }
 })
 
+Disciplina.belongsToMany(Assunto, {through:Possui});
+Assunto.belongsToMany(Disciplina, {through:Possui});
 
 async function sincronizar (){
     await conexao.sync();
@@ -137,17 +151,3 @@ async function consultar (){
     let r = await Pizza.findAll();
     console.log(r);
 }
-
-// sincronizar(); (Já foi)
-
-// inserir(pizza1);
-
-// inserir(pizza2);
-
-// inserir (pizza3);
-
-// inserir (pizza4);
-
-// inserir (pizza5)
-
-consultar();
