@@ -137,6 +137,8 @@ var Possui = conexao.define("Disciplina",
 
 Disciplina.belongsToMany(Assunto, {through:Possui});
 Assunto.belongsToMany(Disciplina, {through:Possui});
+Assunto.belongsToMany(Exercicio, {through:Tem});
+Exercicio.belongsToMany(Assunto, {through:Tem});
 
 async function sincronizar (){
     await conexao.sync();
