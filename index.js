@@ -1,7 +1,7 @@
 let sequelize = require("sequelize");
 
 let conexao = new sequelize (
-    "postgres://lspugqzpqiurbc:6b080a2f1e9883a30c99cf8692d835df5daf1b9d7e3f80c65f705f5eb1ca153d@ec2-52-22-161-59.compute-1.amazonaws.com:5432/dc1aaa46t0nfop",
+    "",
     {
         dialect: "postgres",
         dialectOptions: {
@@ -34,6 +34,10 @@ var Disciplina = conexao.define("Disciplina",
     ,
 
     quantidade: sequelize.INTEGER
+    
+    ,
+
+
 });
 
 var Exercicio = conexao.define("Exercicio", 
@@ -74,7 +78,7 @@ var Exercicio = conexao.define("Exercicio",
 
     ,
 
-    pontuacao: sequelize.numeric
+    pontuacao: sequelize.DOUBLE
 
     ,
 
@@ -99,7 +103,11 @@ var Assunto = conexao.define("Assunto",
 var Tem = conexao.define("Tem", 
 {
     id_assunto: {
-        type: sequelize.INTEGER
+        type: sequelize.INTEGER,
+        references:{
+            key: 'id',
+            model: Assunto
+      }
     }
 
     ,
@@ -107,22 +115,37 @@ var Tem = conexao.define("Tem",
     id_exercicios: {
         type: sequelize.INTEGER,
         allownull: true
-    }
-});
+        references:{
+            key: 'id',
+            model: Exercicio
+        }
+     }
+ });
 
 var Possui = conexao.define("Disciplina", 
 {
     id_disciplina: {
-        type: sequelize.INTEGER
+        type: sequelize.INTEGER,
+        references:{
+            key: 'id',
+            model: Disciplina
+        }
     }
-
     ,
 
     id_assunto: {
-        type: sequelize.INTEGER
+        type: sequelize.INTEGER,
+        references:{
+            key: 'id',
+            model: Assunto
+        }
     }
 })
 
+Disciplina.belongsToMany(Assunto, {through:Possui});
+Assunto.belongsToMany(Disciplina, {through:Possui});
+Assunto.belongsToMany(Exercicio, {through:Tem});
+Exercicio.belongsToMany(Assunto, {through:Tem});
 
 async function sincronizar (){
     await conexao.sync();
@@ -137,17 +160,3 @@ async function consultar (){
     let r = await Pizza.findAll();
     console.log(r);
 }
-
-// sincronizar(); (Já foi)
-
-// inserir(pizza1);
-
-// inserir(pizza2);
-
-// inserir (pizza3);
-
-// inserir (pizza4);
-
-// inserir (pizza5)
-
-consultar();
