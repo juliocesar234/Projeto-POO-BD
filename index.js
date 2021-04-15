@@ -1,4 +1,7 @@
 let sequelize = require("sequelize");
+let exercicio = require("exercicio.js");
+let assunto = require("assunto.js");
+let disciplina = require("disciplina.js");
 
 let conexao = new sequelize (
     "postgres://lspugqzpqiurbc:6b080a2f1e9883a30c99cf8692d835df5daf1b9d7e3f80c65f705f5eb1ca153d@ec2-52-22-161-59.compute-1.amazonaws.com:5432/dc1aaa46t0nfop",
@@ -2236,7 +2239,6 @@ async function sincronizar (){
     await inserirExercicio(questão98);
     await inserirExercicio(questão99);
     await inserirExercicio(questão100);
-
     await inserirAssunto(fracoes);
     await inserirAssunto(funcaoafim);
     await inserirAssunto(funcaoquadratica);
@@ -2306,7 +2308,6 @@ async function sincronizar (){
     await inserirAssunto(Lógica);
     await inserirAssunto(Pré-socráticos);
     await inserirAssunto(Epistemologia);
-
     await inserirDisciplina(artes);
     await inserirDisciplina(portugues);
     await inserirDisciplina(literatura);
@@ -2369,3 +2370,5 @@ async function consultar (){
     let r = await Pizza.findAll();
     console.log(r);
 }
+
+require("DAO"); 
