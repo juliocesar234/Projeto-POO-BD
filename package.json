@@ -19,6 +19,6 @@
   "homepage": "https://github.com/juliocesar234/Projeto-POO-BD#readme",
   "dependencies": {
     "pg": "^8.5.1",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.6.2"
   }
 }
